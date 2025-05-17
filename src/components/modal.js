@@ -1,6 +1,3 @@
-export {openModal, closeModal, closePopupButton};
-/////////////////////////////////////////
-
 const handleEscKeyUp = (e) => {
   if (e.key === "Escape") {
     const popup = document.querySelector(".popup_is-opened"); // находим открытый попап
@@ -18,7 +15,7 @@ const closeModal = (modal) => {
   document.removeEventListener('keydown', handleEscKeyUp);
 };
 
-const closePopupButton = (elementPopup) => {
+const adPopupCloseListeners = (elementPopup) => {
   elementPopup.querySelector('.popup__close').addEventListener('click', () => { //функция закрития по крестику
     closeModal(elementPopup);
   });
@@ -28,7 +25,7 @@ const closePopupButton = (elementPopup) => {
     }
   });
 };
-
-
+/////////////////////////////////////////
+export {openModal, closeModal, adPopupCloseListeners};
 
 

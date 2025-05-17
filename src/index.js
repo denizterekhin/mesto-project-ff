@@ -1,8 +1,8 @@
 // @todo: Импорт
 import './pages/index.css'; // добавьте импорт главного файла стилей 
-import {createCard, renderCard, placesList, likeCard, openImage} from './components/card.js';
+import {createCard, renderCard, placesList, likeCard, handleDeleteCard} from './components/card.js';
 import { initialCards } from './components/cards.js';
-import { closePopupButton, openModal, closeModal } from './components/modal.js';
+import { adPopupCloseListeners, openModal, closeModal } from './components/modal.js';
 import { data } from 'autoprefixer';
 
 // DOM узлы
@@ -28,26 +28,29 @@ const urlCardInput = formCard.querySelector('.popup__input_type_url');
 
 // @todo: Вывести карточки на страницу
 initialCards.forEach((card) => {
-  renderCard(createCard(card, openImage, likeCard));
+  renderCard(createCard(card, openImage, likeCard, handleDeleteCard));
 });
 
 // откритие popup
 openPopupProfil.addEventListener('click', () => openModal(popupEditUser));
 openPopupNewCard.addEventListener('click', () => openModal(popupAddCard));
 
-addEventListener('click', (event) => { //функция открытия popup по клику картинки
-    if (event.target.classList.contains('card__image')) {
-      openModal(popupImage);
-    }
-  });
+
+
+// @todo: функция вставки данных карточки в popup элемент и открытие модального окна для рассмотрения картинок
+function openImage (name, link) {
+  openModal(popupImage);
+  document.querySelector('.popup__caption').textContent = name;
+  document.querySelector('.popup__image').src = link;
+}
 
 //слушатели закрития popup
-closePopupButton(popupEditUser);
-closePopupButton(popupAddCard);
-closePopupButton(popupImage);
+adPopupCloseListeners(popupEditUser);
+adPopupCloseListeners(popupAddCard);
+adPopupCloseListeners(popupImage);
 
 // Обработчик «отправки» формы
-function handleFormSubmit(evt) {
+function handleProfileSubmit(evt) {
     evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
 
     const nameValue = nameInput.value;
@@ -60,7 +63,7 @@ function handleFormSubmit(evt) {
   
 // Прикрепляем обработчик к форме:
 // он будет следить за событием “submit” - «отправка»
-formProfile.addEventListener('submit', handleFormSubmit);
+formProfile.addEventListener('submit', handleProfileSubmit);
 
 // открытие окна редактирования профиля
 openPopupProfil.addEventListener('click', () => {
@@ -73,12 +76,11 @@ openPopupProfil.addEventListener('click', () => {
 //функция добавление новой карточи
 function handleCardSubmit(evt) {
     evt.preventDefault(); // Эта строчка отменяет стандартную отправку формы.
-
-    const nameCardValue = nameCardInput.value;
-    const urlCardValue = urlCardInput.value;
-    initialCards.unshift({name: nameCardValue, link: urlCardValue}); //добавляем в начало масива элемент со значениями из формы
+    const newCard = {};
+    newCard.name = nameCardInput.value;
+    newCard.link = urlCardInput.value;
     
-    placesList.prepend(createCard(initialCards[0], openImage, likeCard)); // добавление карточки в начало списка методом prepend
+    placesList.prepend(createCard(newCard, openImage, likeCard, handleDeleteCard)); // добавление карточки в начало списка методом prepend
     formCard.reset();
     closeModal(popupAddCard);
 

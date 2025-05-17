@@ -1,5 +1,3 @@
-
-export {createCard, handleDeleteCard, renderCard, likeCard, openImage, placesList};
 // @todo: Темплейт карточки
 const cardTmp = document.querySelector('#card-template').content;
 
@@ -7,7 +5,7 @@ const cardTmp = document.querySelector('#card-template').content;
 const placesList = document.querySelector(`.places__list`);
 
 // @todo: Функция создания карточки
-function createCard(data, openImage, likeCard) {
+function createCard(data, openImage, likeCard, handleDeleteCard) {
   const placeItem = cardTmp.querySelector(`.places__item`).cloneNode(true); // Клонирование темплейта в константу
   const likeButton = placeItem.querySelector('.card__like-button');
 
@@ -37,8 +35,6 @@ function likeCard(item) {
   item.classList.toggle('card__like-button_is-active');
 };
 
-// @todo: функция вставки данных карточки в popup элемент для рассмотрения картинок
-function openImage (name, link) {
-  document.querySelector('.popup__caption').textContent = name;
-  document.querySelector('.popup__image').src = link;
-}
+
+///////////////////////////////
+export {createCard, handleDeleteCard, renderCard, likeCard, placesList};
