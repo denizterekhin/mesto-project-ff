@@ -25,11 +25,6 @@ function handleDeleteCard(item){
   item.remove();
 };
 
-// @todo: функция вставки карточки на страницу
-function renderCard(card){
-  placesList.append(card);
-};
-
 // @todo: функция лайка карточки
 function likeCard(item) {
   item.classList.toggle('card__like-button_is-active');
@@ -37,4 +32,4 @@ function likeCard(item) {
 
 
 ///////////////////////////////
-export {createCard, handleDeleteCard, renderCard, likeCard, placesList};
+export {createCard, handleDeleteCard, likeCard, placesList};

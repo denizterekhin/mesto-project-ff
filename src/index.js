@@ -1,6 +1,6 @@
 // @todo: Импорт
 import './pages/index.css'; // добавьте импорт главного файла стилей 
-import {createCard, renderCard, placesList, likeCard, handleDeleteCard} from './components/card.js';
+import {createCard, placesList, likeCard, handleDeleteCard} from './components/card.js';
 import { initialCards } from './components/cards.js';
 import { adPopupCloseListeners, openModal, closeModal } from './components/modal.js';
 import { data } from 'autoprefixer';
@@ -25,6 +25,11 @@ const nameInput = formProfile.querySelector('.popup__input_type_name');
 const jobInput = formProfile.querySelector('.popup__input_type_description');
 const nameCardInput = formCard.querySelector('.popup__input_type_card-name');
 const urlCardInput = formCard.querySelector('.popup__input_type_url');
+
+// @todo: функция вставки карточки на страницу
+function renderCard(card){
+  placesList.append(card);
+};
 
 // @todo: Вывести карточки на страницу
 initialCards.forEach((card) => {
