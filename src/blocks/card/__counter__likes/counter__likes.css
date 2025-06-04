@@ -1,0 +1,5 @@
+.counter__likes{
+  display: flex;
+  justify-content: center;
+  margin-top: 3px;
+}
