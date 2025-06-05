@@ -1,9 +1,10 @@
 import { data } from "autoprefixer";
 import {setLike, deleteLike, deleteCard} from './api.js';
+import { currentUserId } from '../index';
 
 // @todo: Темплейт карточки
 const cardTmp = document.querySelector('#card-template').content;
-const currentUserId = '34caf9ec0ccddb418bbbb707';
+//const currentUserId = '34caf9ec0ccddb418bbbb707';
 // @todo: DOM узлы
 const placesList = document.querySelector(`.places__list`);
 
@@ -16,7 +17,7 @@ function createCard(data, openImage, likeCard, handleDeleteCard) {
   const counterLikes = placeItem.querySelector('.counter__likes');
   const likeDisplay = data.likes.length; //получение лайков для каждой входящей карты (data)
   //выключение кнопки удаления карточки, которую создавал не пользователь сайта(id не совпадает)
-  if (data.owner._id !== '34caf9ec0ccddb418bbbb707') {
+  if (data.owner._id !== currentUserId) {
     buttonDeletCard.setAttribute('style', 'display: none;');
   }
   
@@ -34,10 +35,9 @@ function createCard(data, openImage, likeCard, handleDeleteCard) {
     likeButton.classList.add('card__like-button_is-active');
   }
 
-  //counterLikes.textContent = displayLickes;
   placeItem.querySelector(`.card__title`).textContent = data.name; // передача тайтла карточки в клонированый темплейт
   placeItem.querySelector(`.card__image`).src = data.link; //передача ссылки на картинку в клонированый темплейт
-
+  placeItem.querySelector(`.card__image`).alt = data.name; //передача имени в alt на изображение в клонированый темплейт
   //работа лайка
   likeButton.addEventListener(`click`, () => likeCard(likeButton, data, counterLikes));
   placeItem.querySelector('.card__image').addEventListener(`click`, () => openImage(data.name, data.link));

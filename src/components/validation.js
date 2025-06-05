@@ -1,5 +1,4 @@
 ////////Валидация форм/////////
-import {validationConfig} from '../index';
 
 const showInputError = (formElement, inputElement, errorMessage, validationConfig) => {
   // Находим элемент ошибки внутри самой функции
